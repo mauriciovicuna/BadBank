@@ -1,5 +1,4 @@
 
-
 function Login(){
   const [name, setName]         = React.useState('');
   const [email, setEmail]       = React.useState('');
@@ -8,12 +7,13 @@ function Login(){
   const [show, setShow]         = React.useState(true);
   const [logged, setLogged]     = React.useState(false);
   const [valid, setValid]       = React.useState(false);
-  const ctx = React.useContext(UserContext);  
+  const ctx                     = React.useContext(UserContext);  
+  const lggd                    = React.useContext(LoggedContext);
+  let validUser;
 
   let handleLogin = (e) => {
     e.preventDefault();
-    console.log(ctx.users[1]);
-    let validUser;
+
     for(let i = 0; i < ctx.users.length; i++){
       if (ctx.users[i].email == email){
         validUser = ctx.users[i];
@@ -28,6 +28,7 @@ function Login(){
         setLogged(true);
         setShow(false);
         setLogged(true);
+
 
       }
       else
@@ -66,18 +67,23 @@ function Login(){
 
   return (
     <>
-    <div className={classes()} role="alert">
-      <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+      <div className={classes()} 
+      role="alert"
+      body={valid ?(
+        <>
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.<br/>
         <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+          <span aria-hidden="true">&times;</span>
+        </button></>):
+        <><h1>Nothing to show</h1><br/>
+        </>}
+    />
     <Card 
     bgcolor="info"
     header="Login"
     status={status}
     body={logged ? (  
-           <>Hi there!<br/>
+           <>{validUser.name}<br/>
            <button type="submit" className="btn btn-light" onClick={handleLogout}>Logout</button>
            </>
           ): <>Email address<br/>

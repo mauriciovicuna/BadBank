@@ -1,3 +1,4 @@
+
 function CreateAccount(){
   const [show, setShow]         = React.useState(true);
   const [status, setStatus]     = React.useState('');
@@ -55,4 +56,10 @@ function CreateAccount(){
             )}
     />
   )
+}
+function clearForm(){
+  setName('');
+  setEmail('');
+  setPassword('');
+  setShow(true);
 }

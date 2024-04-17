@@ -4,13 +4,10 @@ function Login(){
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
   const [status, setStatus]     = React.useState('');
-  const [show, setShow]         = React.useState(true);
-  const [logged, setLogged]     = React.useState(false);
-  const [valid, setValid]       = React.useState(false);
-  const ctx                     = React.useContext(UserContext);  
   const lggd                    = React.useContext(LoggedContext);
-   let validUser;
+  const ctx                     = React.useContext(UserContext);  
 
+  let validUser;
   let handleLogin = (e) => {
     e.preventDefault();
 
@@ -20,25 +17,24 @@ function Login(){
       }
     }
     console.log(validUser);
+
     if (validUser) {
       console.log("Correct user")
+
       if(validUser.password == password){
        
         console.log("Login succesfull")
-        setShow(false);
-        setLogged(true);
+
         lggd.user = validUser;
-        console.log(lggd.user);
+        lggd.user.valid = true;
+        console.log(lggd)
       }
       else
         console.log("wrong password")
-        setShow(true);
     }
     else
 
       console.log("Not valid user");
-      setShow(true);
-      setValid(false);
 
     }
 
@@ -46,44 +42,25 @@ function Login(){
     setName('');
     setEmail('');
     setPassword('');
-    setShow(true);
+
   }
   function handleLogout(){
     clearForm();
-    setLogged(false);
+    lggd.user.valid = false;
   }
 
-  function classes(){
-    let alert;
-    alert = valid ? 'alert-success' : 'alert-danger';
-    console.log(valid);
-    const x ='alert ' + alert + ' alert-dismissible fade show';
-    return  x;
-    
-  }
+
 
   //<div class="alert alert-warning alert-dismissible fade show" role="alert"></div>//
 
   return (
     <>
-      <div className={classes()} 
-      role="alert"
-      body={valid ?(
-        <>
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.<br/>
-        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button></>):
-        <><h1>Nothing to show</h1><br/>
-        </>}
-    />
     <Card 
     bgcolor="info"
     header="Login"
     status={status}
-    body={logged ? (  
+    body={ (lggd.user.valid) ? (  
            <>
-           <div id="greet"></div><br/>
            <button type="submit" className="btn btn-light" onClick={handleLogout}>Logout</button>
            </>
           ): <>Email address<br/>

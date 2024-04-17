@@ -9,7 +9,7 @@ function Login(){
   const [valid, setValid]       = React.useState(false);
   const ctx                     = React.useContext(UserContext);  
   const lggd                    = React.useContext(LoggedContext);
-  let validUser;
+   let validUser;
 
   let handleLogin = (e) => {
     e.preventDefault();
@@ -25,11 +25,10 @@ function Login(){
       if(validUser.password == password){
        
         console.log("Login succesfull")
-        setLogged(true);
         setShow(false);
         setLogged(true);
-
-
+        lggd.user = validUser;
+        console.log(lggd.user);
       }
       else
         console.log("wrong password")
@@ -83,7 +82,8 @@ function Login(){
     header="Login"
     status={status}
     body={logged ? (  
-           <>{validUser.name}<br/>
+           <>
+           <div id="greet"></div><br/>
            <button type="submit" className="btn btn-light" onClick={handleLogout}>Logout</button>
            </>
           ): <>Email address<br/>

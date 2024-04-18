@@ -2,12 +2,12 @@
 function Withdraw(){
   const [status, setStatus]       = React.useState('');
   const lggd                      = React.useContext(LoggedContext);
-  const loggedIn                  = lggd.user.valid;
+
   const ctx                       = React.useContext(UserContext);  
   const [amount,setAmount]        = React.useState('')
   const [valid, setValid]         = React.useState(false);
  const [index,setIndex]           = React.useState(null);
- const [message, setMessage]      = React.useState('hola')
+  const [alert, setAlert]         = React.useState(false)
 function validate(e){
   const value = e.target.value;
   setAmount(value);
@@ -23,11 +23,14 @@ function validate(e){
   }
   if(parseFloat(value) > 0 && (parseFloat(value) != NaN || parseFloat(value) != null|| parseFloat(value) != undefined || amount =='' ) && parseFloat(value) <= ctx.users[j].balance){
     setValid(true)
+    setAlert(false)
     setIndex(j);
   }
   else{
     console.log("enter numeric a valid value")
-    setValid(false)}
+    setValid(false)
+    setAlert(true)
+    }
 
 }
 function handleWithdraw(){
@@ -37,7 +40,12 @@ function handleWithdraw(){
       ctx.users[index].balance -= amount;
 }
   return(
-  <>
+
+  <>{alert ?
+    (<div class="alert alert-primary" role="alert">
+    Not a valid value!
+    </div>):<></>}
+  <></>
   <Card 
     bgcolor="danger"
     header="Withdraw"

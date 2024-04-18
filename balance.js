@@ -3,8 +3,6 @@ function Balance(){
   const [status, setStatus]       = React.useState('');
   const ctx                       = React.useContext(UserContext);  
   const lggd                      = React.useContext(LoggedContext);
-  const [index, setIndex]         = React.useState(null);
-  const [message, setMessage]         = React.useState(null);
   const [userbalance, setUserbalance] = React.useState(null);
 
 function showBalance(){

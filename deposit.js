@@ -33,7 +33,7 @@ function handleDeposit(){
   if(amount === "" || amount === NaN)
     console.log("Enter a numeric Value")
  else
-      ctx.users[index].balance += amount;
+      ctx.users[index].balance += parseFloat(amount);
 }
   return(
   <>

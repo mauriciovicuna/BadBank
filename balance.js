@@ -5,9 +5,10 @@ function Balance(){
   const [index, setIndex]         = React.useState(null);
   const [loggedIn, setLoggedIn]   = React.useState(lggd.user.valid);
   const [message, setMessage]     = React.useState('')
-function value()
-{  
-  let j;
+
+React.useEffect(()=>{
+  function value(){
+    let j;
     for(let i = 0; i < ctx.users.length; i++){
       if(ctx.users[i].email == lggd.user.email){
         break;
@@ -16,23 +17,27 @@ function value()
       
       
     }
-    const value = ctx.users[j].balance
+    const value = ctx.users[j].balance;
     setMessage(value);
+  }
+  if(lggd.user.valid)
+  {  
+    value()
+  }
+  else{setMessage('')};
 
-}
+  return ()=> {};
+    
+},[lggd.user.valid])
   return (
-    <>{loggedIn ?<>
-    <h4>Your current balance is:</h4>
-     <button type="submit" className="btn btn-dark" onClick={value}></button>
-     <h4>{JSON.stringify(message)}</h4>
-     <></>
-    </>:<></>}
+    <>
     <Card 
     bgcolor="info"
     header="Balance"
     status={status}
-    body={ loggedIn ?(
+    body={ lggd.user.valid ?(
             <>
+            <h4>Your current balance is: {(message)} </h4>
             </>):
             <>Welcome to your balance area!<br/>You need to login first to see your balance in this content! Go back to Login.<br/>
             </>}

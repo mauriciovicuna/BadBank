@@ -6,9 +6,11 @@ function Balance(){
   const [loggedIn, setLoggedIn]   = React.useState(lggd.user.valid);
   const [message, setMessage]     = React.useState('')
 
+
 React.useEffect(()=>{
   function value(){
     let j;
+    let value;
     for(let i = 0; i < ctx.users.length; i++){
       if(ctx.users[i].email == lggd.user.email){
         break;
@@ -17,10 +19,10 @@ React.useEffect(()=>{
       
       
     }
-    const value = ctx.users[j].balance;
+    value = ctx.users[j].balance;
     setMessage(value);
   }
-  if(lggd.user.valid)
+  if(loggedIn)
   {  
     value()
   }
@@ -28,7 +30,7 @@ React.useEffect(()=>{
 
   return ()=> {};
     
-},[lggd.user.valid])
+},[])
   return (
     <>
     <Card 

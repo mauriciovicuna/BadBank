@@ -9,20 +9,21 @@ function Login(){
   const [exist, setExist]       = React.useState(false);
   const [validP,setValidP]      = React.useState(false);
   const [validE,setValidE]      = React.useState(false);
-  const [valid,setValid]        = React.useState(false);
+  const [valid,setValid]        = React.useState();
+
 function handleEmail(e){
   const value = e.target.value;
-  let valid = false
+  let v = false
   setEmail(value);
   for (let i = 0; i < ctx.users.length ; i++){
     if (ctx.users[i].email == value){
-      valid = true;
+      v = true;
       break ;
       
     }
 }
-  if(valid == true){
-    setValidE(valid);
+  if(v == true){
+    setValidE(v);
     lggd.user.email = email;
   }
   else{
@@ -31,16 +32,16 @@ function handleEmail(e){
 }
 
 function handlePassword(e){
-    let valid = false;
+    let v= false;
   const value = e.target.value;
   setPassword(value);
   for (let i = 0; i < ctx.users.length ; i++){
     if (ctx.users[i].password == value){
-      valid = true;
+      v = true;
       break ;
     }
 }
-if(valid == true){
+if(v == true){
   setValidP(true);
   lggd.user.password = password;
 }
@@ -54,6 +55,9 @@ else{
 
 function validate(){
  setValid(true);
+ lggd.user.valid = true;
+ setValidE(false);
+ setValidP(false);
 }
 
   function clearForm(){
@@ -79,7 +83,7 @@ function validate(){
     bgcolor="info"
     header="Login"
     status={status}
-    body={ valid ? (  
+    body={ lggd.user.valid ? (  
            <>
            <button type="submit" className="btn btn-light" onClick={handleLogout}>Logout</button>
            </>

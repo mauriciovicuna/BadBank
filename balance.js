@@ -1,24 +1,43 @@
 function Balance(){
   const [status, setStatus]       = React.useState('');
-  const [show, setShow]           = React.useState(true);
-  const [logged, setLogged]       = React.useState(false);
-  const [valid, setValid]         = React.useState(false);
   const ctx                       = React.useContext(UserContext);  
-  const [amount,setAmount]        = React.useState('')
   const lggd                      = React.useContext(LoggedContext);
-  const [errormssg, setErrormssg] = React.useState('');
+  const [index, setIndex]         = React.useState(null);
+  const [loggedIn, setLoggedIn]   = React.useState(lggd.user.valid);
+  const [message, setMessage]     = React.useState('')
+function value()
+{  
+  let j;
+    for(let i = 0; i < ctx.users.length; i++){
+      if(ctx.users[i].email == lggd.user.email){
+        break;
+      }
+      j = i+1;
+      
+      
+    }
+    const value = ctx.users[j].balance
+    setMessage(value);
 
-  return (<>
+}
+  return (
+    <>{loggedIn ?<>
+    <h4>Your current balance is:</h4>
+     <button type="submit" className="btn btn-dark" onClick={value}></button>
+     <h4>{JSON.stringify(message)}</h4>
+     <></>
+    </>:<></>}
     <Card 
     bgcolor="info"
     header="Balance"
     status={status}
-    body={ logged ?
-           (<>Welcome to your balance area!<br/>
-          </>):(<>You need to login first to withdraw to this content! Go back to Login.
-            </>)}
+    body={ loggedIn ?(
+            <>
+            </>):
+            <>Welcome to your balance area!<br/>You need to login first to see your balance in this content! Go back to Login.<br/>
+            </>}
   />
     </>
-    
+
   )
 }

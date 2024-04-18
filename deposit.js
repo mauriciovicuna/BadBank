@@ -1,3 +1,4 @@
+
 function Deposit(){
   const [status, setStatus]       = React.useState('');
   const lggd                      = React.useContext(LoggedContext);
@@ -5,7 +6,9 @@ function Deposit(){
   const ctx                       = React.useContext(UserContext);  
   const [amount,setAmount]        = React.useState('')
   const [valid, setValid]         = React.useState(false);
- const [index,setIndex]           = React.useState(null);
+  const [index,setIndex]           = React.useState(null);
+ 
+ 
 function validate(e){
   const value = e.target.value;
   setAmount(value);

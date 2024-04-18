@@ -7,20 +7,23 @@ function Withdraw(){
   const [amount,setAmount]        = React.useState('')
   const [valid, setValid]         = React.useState(false);
  const [index,setIndex]           = React.useState(null);
+ const [message, setMessage]      = React.useState('hola')
 function validate(e){
   const value = e.target.value;
   setAmount(value);
+  let j ;
   if (lggd.user.valid){
     for(let i = 0; i < ctx.users.length; i++){
       if(ctx.users[i].email == lggd.user.email){
         break;
       }
-      setIndex(i+1); 
+      j = i+1; 
     }
 
   }
-  if(parseFloat(value) > 0 && (parseFloat(value) != NaN || parseFloat(value) != null|| parseFloat(value) != undefined || amount =='' ) && parseFloat(value) <= ctx.users[index].balance){
+  if(parseFloat(value) > 0 && (parseFloat(value) != NaN || parseFloat(value) != null|| parseFloat(value) != undefined || amount =='' ) && parseFloat(value) <= ctx.users[j].balance){
     setValid(true)
+    setIndex(j);
   }
   else{
     console.log("enter numeric a valid value")
@@ -40,7 +43,7 @@ function handleWithdraw(){
     header="Withdraw"
     status={status}
     body={ lggd.user.valid ?
-           <>Welcome to the Withdraw area!<br/>
+           <>Welcome to the Withdraw area! <br/>
            <input type="input" className="form-control" id="withdraw" placeholder="Amount" value={amount} onInput={validate}/><br/>
            <button type="submit" className="btn btn-light" onClick={handleWithdraw} disabled={!valid}>Withdraw</button>
           </>:<>You need to login first to withdraw to this content! Go back to Login.

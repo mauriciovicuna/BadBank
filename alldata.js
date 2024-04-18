@@ -5,8 +5,7 @@ function AllData(){
 function update(){
   const div = document.getElementById("users");
   div.innerHTML = ctx.users.map((user) => ( 
-    `<p key=${JSON.stringify(user.name)}>Name: ${user.name} Email : ${user.email} password: ${user.password} balance : ${user.balance} last transaction : ${user.transaction}</p>`
-    ))
+    `<p key=${JSON.stringify(user.name)}>Name: ${user.name} | Email : ${user.email}  |  password: ${user.password}  | balance : ${user.balance}  | last transaction : ${user.transaction}</p>`))
     }
 
 

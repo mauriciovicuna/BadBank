@@ -4,6 +4,7 @@ const HashRouter    = ReactRouterDOM.HashRouter;
 const UserContext   = React.createContext(null);
 const LoggedContext = React.createContext(null);
 
+
 function Card(props){
     function classes(){
       const bg  = props.bgcolor ? ' bg-' + props.bgcolor : ' ';

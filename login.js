@@ -24,7 +24,7 @@ function handleEmail(e){
 }
   if(v == true){
     setValidE(v);
-    lggd.user.email = email;
+   
   }
   else{
     setValidE(false)}
@@ -43,7 +43,7 @@ function handlePassword(e){
 }
 if(v == true){
   setValidP(true);
-  lggd.user.password = password;
+ 
 }
 else{
   setValidP(false)}
@@ -55,6 +55,8 @@ else{
 
 function validate(){
  setValid(true);
+ lggd.user.email = email;
+ lggd.user.password = password;
  lggd.user.valid = true;
  setValidE(false);
  setValidP(false);

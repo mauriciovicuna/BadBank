@@ -1,6 +1,6 @@
 
 function CreateAccount(){
-  const [show, setShow]         = React.useState(true);
+  const [show, setShow]         = React.useState(false);
   const [status, setStatus]     = React.useState('');
   const [name, setName]         = React.useState('');
   const [email, setEmail]       = React.useState('');
@@ -10,9 +10,7 @@ function CreateAccount(){
   const [create, setCreate]     = React.useState(null);
   const [alert, setAlert]       = React.useState(false);
 
-
   function validate(){
-
     if(name == ''){
       setValid(false)
       setAlert(true)
@@ -40,8 +38,10 @@ function CreateAccount(){
   function handleCreate(){
     console.log(name,email,password);
     ctx.users.push({name,email,password,balance:100});
+    setShow(true);
     clearForm();
-    setShow(false);
+    setValid(false)
+    
     
   }    
 
@@ -49,42 +49,35 @@ function CreateAccount(){
     setName('');
     setEmail('');
     setPassword('');
-    setShow(true);
   }
 
   return (
+    <>{show ?
+    <div className="alert alert-success alert-dismissible fade show" role="alert">
+      Account created!</div>:<></>}
     <>{alert ?(
       <div className="alert alert-warning alert-dismissible fade show" role="alert">
       <strong>Holy guacamole!</strong> You should check in on some of those fields
-      below.
-      <button
-        type="button"
-        className="close"
-        data-dismiss="alert"
-        aria-label="Close"
-      ></button>
     </div>):<></>}
     <Card
       bgcolor="primary"
       header="Create Account"
       status={status}
-      body={show ? (  
-              <>
+      body={(  <>
               Name<br/>
               <input type="input" className="form-control" id="name" placeholder="Enter name" value={name} onChange={e => {setName(e.currentTarget.value); validate()}} /><br/>
               Email address<br/>
               <input type="input" className="form-control" id="email" placeholder="Enter email" value={email} onChange={e => {setEmail(e.currentTarget.value); validate()}}/><br/>
               Password<br/>
               <input type="password" className="form-control" id="password" placeholder="Enter password" value={password} onChange={e => {setPassword(e.currentTarget.value); validate()}}/><br/>
-              <button type="submit" className="btn btn-light" onClick={handleCreate} disabled={!valid}>Create Account</button>
-              </>
-            ):(
-              <>
-              <h5>Success</h5>
-              <button type="submit" className="btn btn-light" onClick={clearForm}>Add another account</button>
+              <button type="submit" className="btn btn-light" onClick={handleCreate} disabled={!valid}>Create  
+              {show ? <div id="createbutton">another</div>:<></>}
+               Acc</button>
+              
               </>
             )}
     />
     </>
+  </>
   )
 }

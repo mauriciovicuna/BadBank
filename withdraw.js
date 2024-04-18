@@ -5,43 +5,44 @@ function Withdraw(){
   const loggedIn                  = lggd.user.valid;
   const ctx                       = React.useContext(UserContext);  
   const [amount,setAmount]        = React.useState('')
-  const [valid, setValid]         = React.useState(true);
-  
+  const [valid, setValid]         = React.useState(false);
+ const [index,setIndex]           = React.useState(null);
 function validate(e){
-  setAmount(e.target.value);
-  if((parseFloat(amount) > 0 && (parseFloat(amount) != NaN || parseFloat(amount) != null|| parseFloat(amount) != undefined || amount =='')) ){
-    setValid(false)
-    console.log(valid);
-  }
-  else{
-    console.log("enter numeric a valid value")
-    setValid(true)}
-
-}
-function handleWithdraw(){
+  const value = e.target.value;
+  setAmount(value);
   if (lggd.user.valid){
     for(let i = 0; i < ctx.users.length; i++){
       if(ctx.users[i].email == lggd.user.email){
         break;
       }
-      ctx.users[i+1].balance -=  amount; 
+      setIndex(i+1); 
     }
 
   }
-  
- }
-  
+  if(parseFloat(value) > 0 && (parseFloat(value) != NaN || parseFloat(value) != null|| parseFloat(value) != undefined || amount =='' ) && parseFloat(value) <= ctx.users[index].balance){
+    setValid(true)
+  }
+  else{
+    console.log("enter numeric a valid value")
+    setValid(false)}
 
+}
+function handleWithdraw(){
+  if(amount === "" || amount === NaN)
+    console.log("Enter a numeric Value")
+ else
+      ctx.users[index].balance -= amount;
+}
   return(
   <>
   <Card 
     bgcolor="danger"
     header="Withdraw"
     status={status}
-    body={ loggedIn ?
+    body={ lggd.user.valid ?
            <>Welcome to the Withdraw area!<br/>
-           <input type="input" className="form-control" id="withdraw" placeholder="Amount" value={amount} onChange={validate}/><br/>
-           <button type="submit" className="btn btn-light" onClick={handleWithdraw} disabled={valid}>Withdraw</button>
+           <input type="input" className="form-control" id="withdraw" placeholder="Amount" value={amount} onInput={validate}/><br/>
+           <button type="submit" className="btn btn-light" onClick={handleWithdraw} disabled={!valid}>Withdraw</button>
           </>:<>You need to login first to withdraw to this content! Go back to Login.
             </>}
   />

@@ -24,8 +24,7 @@ function validate(){
  }
 }
   function handleLogin() {    
-    console.log("exito")
-
+  
   }
   function clearForm(){
     setName('');

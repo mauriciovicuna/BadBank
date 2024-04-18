@@ -35,6 +35,7 @@ function handleDeposit(){
     console.log("Enter a numeric Value")
  else
       ctx.users[index].balance += parseFloat(amount);
+      ctx.users[index].transaction = amount;
 }
   return(
   <>

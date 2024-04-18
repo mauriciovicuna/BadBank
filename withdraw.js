@@ -38,6 +38,7 @@ function handleWithdraw(){
     console.log("Enter a numeric Value")
  else
       ctx.users[index].balance -= amount;
+      ctx.users[index].transaction = -(amount);
 }
   return(
 
